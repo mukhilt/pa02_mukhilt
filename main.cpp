@@ -79,7 +79,7 @@ int main(int argc, char** argv){
             prefixes.push_back(line);
         }
     }
-
+    vector<pair<string, pair<string,double>>> bests;
     for (auto it = prefixes.begin(); it != prefixes.end(); ++it) {
         string prefix = *it;
         vector<pair<string, double>> moviesVec;
@@ -98,8 +98,11 @@ int main(int argc, char** argv){
                 cout << itTT->first << ", " << fixed << setprecision(1) << itTT->second << endl;
             }
             cout << endl;
-            cout << "Best movie with prefix " << prefix << " is: " << moviesVec[0].first << " with rating " << fixed << setprecision(1) << moviesVec[0].second << endl;
+            bests.push_back({prefix, {moviesVec[0].first, moviesVec[0].second}});
         }
+    }
+    for (int i = 0; i < bests.size(); i++) {
+        cout << "Best movie with prefix " << bests[i].first << " is " << bests[i].second.first << " with rating " << fixed << setprecision(1) << bests[i].second.second << endl;
     }
 
     //  For each prefix,
