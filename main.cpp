@@ -84,8 +84,7 @@ int main(int argc, char** argv){
         string prefix = *it;
         vector<pair<string, double>> moviesVec;
         auto a = movies.lower_bound(prefix);
-        while (a != movies.end() &&
-               a->first.substr(0, prefix.length()) == prefix) {
+        while (a != movies.end() && a->first.substr(0, prefix.length()) == prefix) {
             moviesVec.push_back({a->first, a->second});
             ++a;
                }
@@ -120,19 +119,20 @@ int main(int argc, char** argv){
 //3A
 //Our main structure we used here was the order map for storing the movies. The average cost for an ordered mao is O(log n)
 //And because we are inserting n number of movies, that left us with a time complexity of O(nlog n). Next up, we look through
-//every single movie. This leads to a time complexity of O(n). However, we repeat this process every time for m prefixes. Thus
-//out time complexity for scanning gives us O(mn). During our sort, our time should cost log k. And because we are sorting k (movies with the prefix),
+//for matching prefix. But rather than looking through every movie, we go directly to the first match. This results in a complexity
+//of O(logn). However, we repeat this process every time for m prefixes. Thus
+//out time complexity for scanning gives us O(mlogn). During our sort, our time should cost log k. And because we are sorting k (movies with the prefix),
 //the overall cost for storing will be O(klog k) per prefix. We again repeat the process. This time, we repeat for the movies
 //that start with the prefix. Therefore, the overall complexity will be O(mklog k). Finally, our overarching logic when it comes to
 //checking prefix is that we run through all n movies for each m prefix. This leaves us with a time complexity of O(mn).
 //In our print statement, we run through k matching movies k times for m prefixes. This leaves us with a time complexity
-//of O(km). When we put all of these together, we get an overall complexity of: O(nlogn + mn + mklog k + mk). The worst-case time complexity,
-//assuming that k can be n is O(mnlog n). However, randomized data sets would lead to the dominant time complexity to be O(mn).
+//of O(km). When we put all of these together, we get an overall complexity of: O(nlogn + mlogn + mklog k + mk). The worst-case time complexity,
+//assuming that k can be n is O(mnlog n). However, randomized data sets would lead to the dominant time complexity to be O(mklog k).
 
-//20 input: 0.032 (32ms)
-//100 input: 0.276 (276ms)
-//1000 input: 0.254 (254ms)
-//76920 input: 33.221 (33221ms)
+//20 input: 0.024 (24ms)
+//100 input: 0.034 (34ms)
+//1000 input: 0.051 (51ms)
+//76920 input: 0.181 (181ms)
 
 //3B
 //For the space complexity, we can first look at the map that we created. In the map, we store n number of movie titles
@@ -143,13 +143,12 @@ int main(int argc, char** argv){
 //complexity of O(nl + ml + kl). The dominant term in this will be O(nl).
 
 //3C
-//My thought process was to implement a simplistic process with the intentions of keeping a low space complexity. To maintain
-//simplicity, I chose to implement an ordered map to store the movies and ratings. This resulted in a space complexity of O(nl)
-//Additionally, I used a vector to store all the matching movies. This results in a space complexity of O(k). However, that being said,
-//I did not achieve a very low time complexity. The main reason why I wasn't able to achieve a very low time complexity
-//is because every movie is being traversed for every prefix.
+//My thought process was to implement a simplistic process with the intentions of keeping a low space complexity, and also a
+//minimal time complexity. To maintain simplicity, I chose to implement an ordered map to store the movies and ratings.
+//This resulted in a space complexity of O(nl). Additionally, I used a vector to store all the matching movies.
+//This results in a space complexity of O(kl). To achieve a low time complexity, I tried to avoid having to traverse EVERY movie
+//repeatedly for all the prefixes. Rather, I used lower_boud(prefix) to start where the first movie matches.
 
-/* Add your run time analysis for part 3 of the assignment here as commented block*/
 
 bool parseLine(string &line, string &movieName, double &movieRating) {
     int commaIndex = line.find_last_of(",");
