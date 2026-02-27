@@ -83,12 +83,12 @@ int main(int argc, char** argv){
     for (auto it = prefixes.begin(); it != prefixes.end(); ++it) {
         string prefix = *it;
         vector<pair<string, double>> moviesVec;
-        for (auto itT = movies.begin(); itT != movies.end(); ++itT) {
-            string theName = itT->first;
-            if (theName.substr(0,prefix.length()) == prefix) {
-                moviesVec.push_back({itT->first, itT->second});
-            }
-        }
+        auto a = movies.lower_bound(prefix);
+        while (a != movies.end() &&
+               a->first.substr(0, prefix.length()) == prefix) {
+            moviesVec.push_back({a->first, a->second});
+            ++a;
+               }
         if (moviesVec.empty()) {
             cout << "No movies found with prefix " << prefix << endl;
         }
