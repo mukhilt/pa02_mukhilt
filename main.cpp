@@ -90,7 +90,7 @@ int main(int argc, char** argv){
             }
         }
         if (moviesVec.empty()) {
-            cout << "No movies found with prefix "<< prefix << endl;
+            cout << "No movies found with prefix " << prefix << endl;
         }
         else{
             sort(moviesVec.begin(), moviesVec.end(), comparison);
@@ -98,7 +98,7 @@ int main(int argc, char** argv){
                 cout << itTT->first << ", " << fixed << setprecision(1) << itTT->second << endl;
             }
             cout << endl;
-            cout << "Best movie with prefix " << prefix<< " is: " << moviesVec[0].first<< " with rating " << fixed << setprecision(1)<< moviesVec[0].second << endl;
+            cout << "Best movie with prefix " << prefix << " is: " << moviesVec[0].first << " with rating " << fixed << setprecision(1) << moviesVec[0].second << endl;
         }
     }
 
