@@ -61,7 +61,7 @@ int main(int argc, char** argv){
 
     if (argc == 2){
         for (auto it = movies.begin(); it != movies.end(); ++it) {
-            cout<<it->first<< " has rating: "<<it->second<<endl;
+            cout << it->first << ", " << fixed << setprecision(1) << it->second << endl;
         }
             return 0;
     }
@@ -95,10 +95,10 @@ int main(int argc, char** argv){
         else{
             sort(moviesVec.begin(), moviesVec.end(), comparison);
             for (auto itTT = moviesVec.begin(); itTT != moviesVec.end(); ++itTT) {
-                cout << itTT->first << ", "<< itTT->second << endl;
+                cout << itTT->first << ", " << fixed << setprecision(1) << itTT->second << endl;
             }
             cout << endl;
-            cout << "Best movie with prefix "<<prefix<< " is: " << moviesVec[0].first << " with rating " << moviesVec[0].second << endl;
+            cout << "Best movie with prefix " << prefix<< " is: " << moviesVec[0].first<< " with rating " << fixed << setprecision(1)<< moviesVec[0].second << endl;
         }
     }
 
@@ -144,7 +144,7 @@ int main(int argc, char** argv){
 //simplicity, I chose to implement an ordered map to store the movies and ratings. This resulted in a space complexity of O(nl)
 //Additionally, I used a vector to store all the matching movies. This results in a space complexity of O(k). However, that being said,
 //I did not achieve a very low time complexity. The main reason why I wasn't able to achieve a very low time complexity
-//is because every movie is being traversed for every prefix. 
+//is because every movie is being traversed for every prefix.
 
 /* Add your run time analysis for part 3 of the assignment here as commented block*/
 
